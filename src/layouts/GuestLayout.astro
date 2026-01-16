@@ -1,0 +1,87 @@
+---
+import "../styles/global.css";
+import { ModeToggle } from "@/components/ModeToggle";
+const { content } = Astro.props;
+---
+
+<script is:inline>
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+  const isDark = getThemePreference() === "dark";
+  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+
+  if (typeof localStorage !== "undefined") {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+</script>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{content.title}</title>
+  </head>
+  <header>
+    <div>
+      <ModeToggle client:load />
+    </div>
+  </header>
+  <body>
+    <slot />
+  </body>
+  <footer>
+    <section
+      class="py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25"
+    >
+      <div class="w-full h-full mx-auto px-5 max-w-5xl">
+        <div class="h-full grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div
+            class="order-2 sm:order-1 flex flex-col items-center justify-center sm:items-start"
+          >
+            <div>
+              <a
+                href=""
+                class="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+              >
+                Terms
+              </a>
+              |
+              <a
+                href=""
+                class="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+              >
+                Privacy Policy
+              </a>
+            </div>
+            <p
+              class="text-sm mt-2 text-center sm:text-left text-black dark:text-white"
+            >
+              © 2024 Andre Austria. All rights reserved.
+            </p>
+          </div>
+          <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
+            <div class="flex flex-wrap gap-1 items-center justify-center">
+              <a href="">facebook</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </footer>
+
+</html>

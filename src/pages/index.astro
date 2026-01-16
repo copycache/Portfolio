@@ -1,16 +1,153 @@
 ---
+import "../styles/global.css";
+// Component Imports
+import GuestLayout from "@/layouts/GuestLayout.astro";
+import { Image } from "astro:assets";
+import { Button } from "@/components/ui/button";
+import { FileText, ArrowRight } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+const techStack = [
+  {
+    name: "JavaScript",
+    icon: "/icons/Javascript.png",
+    url: "https://www.javascript.com/",
+  },
+  {
+    name: "TypeScript",
+    icon: "/icons/Typescript.png",
+    url: "https://www.typescriptlang.org/",
+  },
+  { name: "Node.js", icon: "/icons/NodeJS.svg", url: "https://nodejs.org/en" },
+  { name: "Vue.js", icon: "/icons/VueJS.svg", url: "https://vuejs.org/" },
+  { name: "Nuxt.js", icon: "/icons/NuxtJS.svg", url: "https://nuxt.com/" },
+  { name: "React", icon: "/icons/ReactJS.svg", url: "https://react.dev/" },
+  { name: "Next.js", icon: "/icons/NextJS.svg", url: "https://nextjs.org/" },
+  {
+    name: "Angular",
+    icon: "/icons/AngularJS.svg",
+    url: "https://angularjs.org/",
+  },
+  {
+    name: "Tailwind CSS",
+    icon: "/icons/TailwindCSS.svg",
+    url: "https://tailwindcss.com/",
+  },
+  {
+    name: "Bootstrap",
+    icon: "/icons/Bootstrap.svg",
+    url: "https://getbootstrap.com/",
+  },
+  { name: "Sass", icon: "/icons/Sass.svg", url: "https://sass-lang.com/" },
+  { name: "PHP", icon: "/icons/PHP.svg", url: "https://www.php.net/" },
+  { name: "Laravel", icon: "/icons/Laravel.svg", url: "https://laravel.com/" },
+  { name: "Python", icon: "/icons/Python.svg", url: "https://www.python.org/" },
+  {
+    name: "Flask",
+    icon: "/icons/Flask.svg",
+    url: "https://flask.palletsprojects.com/",
+  },
+  {
+    name: "Django",
+    icon: "/icons/Django.svg",
+    url: "https://www.djangoproject.com/",
+  },
+  { name: "MySQL", icon: "/icons/MySQL.svg", url: "https://www.mysql.com/" },
+  {
+    name: "Firebase",
+    icon: "/icons/Firebase.svg",
+    url: "https://firebase.google.com/",
+  },
+  { name: "Kotlin", icon: "/icons/Kotlin.svg", url: "https://kotlinlang.org/" },
+  { name: "Git", icon: "/icons/Git.svg", url: "https://git-scm.com/" },
+  {
+    name: "NVM",
+    icon: "/icons/Nvm.svg",
+    url: "https://www.nvmnode.com/guide/download.html",
+  },
+  { name: "Docker", icon: "/icons/Docker.svg", url: "https://www.docker.com/" },
+  { name: "Linux", icon: "/icons/Linux.svg", url: "https://www.linux.org/" },
+  { name: "Debian", icon: "/icons/Debian.svg", url: "https://www.debian.org/" },
+  { name: "Figma", icon: "/icons/Figma.svg", url: "https://www.figma.com/" },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<GuestLayout content={{ title: "Home | Andre Austria" }}>
+  <div>
+    <section class="grid place-items-center h-screen content-center">
+      <div class="p-5 text-center">
+        <p class="text-lg md:text-xl lg:text-2xl font-semibold opacity-75">
+          Hello, I am
+        </p>
+        <p
+          class="text-5xl md:text-6xl lg:text-7xl font-bold uppercase text-black dark:text-white"
+        >
+          Andre Austria
+        </p>
+        <p class="text-sm md:text-base lg:text-lg opacity-75">
+          Junior IT Developer / Full Stack Developer
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-4 justify-center mt-5">
+        <Button><FileText className="size-4" />Download CV</Button>
+        <Button variant="outline"
+          >Get in Touch<ArrowRight className="size-4" /></Button
+        >
+      </div>
+    </section>
+
+    <div class="mx-auto max-w-5xl p-5 space-y-24">
+      <p class="text-black sm:text-lg dark:text-white">
+        Junior and Full Stack Web Developer driven by a passion for creating
+        scalable, high-performance, and user-focused web solutions. Experienced
+        across the full development stack, with strong expertise in JavaScript
+        and TypeScript using modern frameworks such as React.js, Next.js,
+        Vue.js/Nuxt.js, and Node.js. Skilled in crafting clean, responsive
+        interfaces with Tailwind CSS, Bootstrap, and shadcn/ui, while building
+        reliable back-end systems powered by MySQL, PostgreSQL, and MongoDB.
+      </p>
+
+      <div class="space-y-4">
+        <p class="font-semibold text-black dark:text-white text-xl">
+          Tech Stack
+        </p>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mt-5">
+          {
+            techStack.map((tech) => (
+              <a href={tech.url} target="_blank" class="group">
+                <div
+                  class="flex flex-col items-center justify-center gap-2
+                            aspect-square rounded-xl
+                            bg-neutral-100 dark:bg-neutral-900
+                            border border-neutral-200 dark:border-neutral-800
+                            transition-all duration-200
+                            hover:scale-105 hover:shadow-md"
+                >
+                  <Image
+                    src={tech.icon}
+                    alt={tech.name}
+                    width="40"
+                    height="40"
+                    class="object-contain"
+                  />
+
+                  <p
+                    class="text-xs sm:text-sm font-medium
+                              text-neutral-700 dark:text-neutral-300"
+                  >
+                    {tech.name}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="grid place-items-center h-screen content-center">
+      <Card className="w-full max-w-sm">asd</Card>
+    </div>
+  </div>
+</GuestLayout>
