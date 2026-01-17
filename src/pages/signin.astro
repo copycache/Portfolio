@@ -1,0 +1,19 @@
+---
+import "../styles/global.css";
+import { LoginForm } from "@/components/LoginForm";
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get("sb-access-token");
+const refreshToken = cookies.get("sb-refresh-token");
+
+if (accessToken && refreshToken) {
+  return redirect("/dashboard");
+}
+---
+
+<div>
+  <section class="grid place-items-center h-screen content-center">
+    <LoginForm client:load />
+  </section>
+</div>

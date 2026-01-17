@@ -5,7 +5,15 @@ import GuestLayout from "@/layouts/GuestLayout.astro";
 import { Image } from "astro:assets";
 import { Button } from "@/components/ui/button";
 import { FileText, ArrowRight } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const techStack = [
   {
@@ -70,6 +78,28 @@ const techStack = [
   { name: "Debian", icon: "/icons/Debian.svg", url: "https://www.debian.org/" },
   { name: "Figma", icon: "/icons/Figma.svg", url: "https://www.figma.com/" },
 ];
+
+// Projects Array
+const projects = [
+  {
+    title: "Portfolio Website",
+    date: "Jan 2026",
+    description:
+      "A personal portfolio website to showcase my projects, built with Astro, React, and Tailwind CSS.",
+    image: "https://cdn.shadcnstudio.com/ss-assets/components/card/image-3.png",
+    tech: ["Astro", "React", "Tailwind CSS", "shadcn/ui"],
+    url: "#",
+  },
+  {
+    title: "Livewell – Digima E-Commerce Networking Web (Discontinued)",
+    date: "March 2025",
+    description:
+      "A full-stack e-commerce platform with shopping cart, product management, and payment gateway integration.",
+    image: "https://cdn.shadcnstudio.com/ss-assets/components/card/image-2.png",
+    tech: ["Next.js", "Node.js", "MySQL", "Tailwind CSS"],
+    url: "#",
+  },
+];
 ---
 
 <GuestLayout content={{ title: "Home | Andre Austria" }}>
@@ -99,13 +129,22 @@ const techStack = [
 
     <div class="mx-auto max-w-5xl p-5 space-y-24">
       <p class="text-black sm:text-lg dark:text-white">
-        Junior and Full Stack Web Developer driven by a passion for creating
-        scalable, high-performance, and user-focused web solutions. Experienced
-        across the full development stack, with strong expertise in JavaScript
-        and TypeScript using modern frameworks such as React.js, Next.js,
-        Vue.js/Nuxt.js, and Node.js. Skilled in crafting clean, responsive
-        interfaces with Tailwind CSS, Bootstrap, and shadcn/ui, while building
-        reliable back-end systems powered by MySQL, PostgreSQL, and MongoDB.
+        Junior Full Stack Web Developer specializing in <span
+          class="font-semibold"
+        >
+          TypeScript and JavaScript
+        </span> with hands-on experience in <span class="font-semibold">
+          React.js, Next.js, Vue.js/Nuxt.js, and Node.js
+        </span>. Passionate about building <span class="font-semibold">
+          responsive, user-friendly interfaces using Tailwind CSS, Bootstrap,
+          shadcn/ui, and Radix UI
+        </span>, and developing <span class="font-semibold">
+          robust back-end solutions
+        </span> with <span class="font-semibold">
+          MySQL, Firebase, and Supabase
+        </span>. Driven to create <span class="font-semibold">
+          scalable, high-performance web applications
+        </span> that deliver seamless user experiences.
       </p>
 
       <div class="space-y-4">
@@ -146,8 +185,67 @@ const techStack = [
       </div>
     </div>
 
-    <div class="grid place-items-center h-screen content-center">
-      <Card className="w-full max-w-sm">asd</Card>
+    <!-- Projects Section -->
+    <div class="mx-auto max-w-5xl p-5">
+      <div class="flex justify-between">
+        <p class="font-semibold text-black dark:text-white text-xl mb-6">
+          Projects
+        </p>
+        <a href=""><Button variant="link">View All Projects</Button></a>
+      </div>
+
+      <div class="grid gap-8">
+        {
+          projects.map((project) => (
+            <Card className="rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+              <div class="flex flex-col md:flex-row">
+                <CardContent className="p-0 md:w-1/2 relative group">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    class="w-full h-full object-cover rounded-md"
+                  />
+                  <a
+                    href=""
+                    target="_blank"
+                    class="absolute inset-0 rounded-md opacity-0 group-hover:opacity-75 transition-opacity duration-300 flex items-center justify-center
+         bg-black bg-opacity-40"
+                  >
+                    <span class="text-white font-medium text-sm">
+                      Live Preview
+                    </span>
+                  </a>
+                </CardContent>
+
+                <div class="flex flex-col justify-between md:w-2/3 p-6 gap-3">
+                  <CardHeader className="p-0">
+                    <CardTitle className="text-lg md:text-xl font-bold">
+                      {project.title}
+                    </CardTitle>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+                      {project.date}
+                    </p>
+                  </CardHeader>
+
+                  <CardDescription className="text-sm text-neutral-600 dark:text-neutral-400">
+                    {project.description}
+                  </CardDescription>
+
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    {project.tech.map((tech) => (
+                      <Badge variant="outline">{tech}</Badge>
+                    ))}
+                  </div>
+
+                  <CardFooter className="p-0 mt-4">
+                    <Button variant="outline">Explore More</Button>
+                  </CardFooter>
+                </div>
+              </div>
+            </Card>
+          ))
+        }
+      </div>
     </div>
   </div>
 </GuestLayout>
