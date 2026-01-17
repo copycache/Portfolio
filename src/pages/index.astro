@@ -14,6 +14,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getProjectsFormatted } from "./api/project.ts";
+import { GetintouchForm } from "@/components/GetintouchForm";
+
+const projects = await getProjectsFormatted();
 
 const techStack = [
   {
@@ -79,27 +83,33 @@ const techStack = [
   { name: "Figma", icon: "/icons/Figma.svg", url: "https://www.figma.com/" },
 ];
 
-// Projects Array
-const projects = [
+const connectLinks = [
   {
-    title: "Portfolio Website",
-    date: "Jan 2026",
-    description:
-      "A personal portfolio website to showcase my projects, built with Astro, React, and Tailwind CSS.",
-    image: "https://cdn.shadcnstudio.com/ss-assets/components/card/image-3.png",
-    tech: ["Astro", "React", "Tailwind CSS", "shadcn/ui"],
-    url: "#",
+    label: "Email",
+    url: "mailto:austria.andrecarl@gmail.com",
+    name: "austria.andrecarl@gmail.com"
   },
   {
-    title: "Livewell – Digima E-Commerce Networking Web (Discontinued)",
-    date: "March 2025",
-    description:
-      "A full-stack e-commerce platform with shopping cart, product management, and payment gateway integration.",
-    image: "https://cdn.shadcnstudio.com/ss-assets/components/card/image-2.png",
-    tech: ["Next.js", "Node.js", "MySQL", "Tailwind CSS"],
-    url: "#",
+    label: "Facebook",
+    url: "https://www.facebook.com/andre.austria.353794",
+    name: "Andre.Austria"
   },
-];
+  {
+    label: "Instagram",
+    url: "https://www.instagram.com/knetic_404/",
+    name: "Andre"
+  },
+  {
+    label: "Github",
+    url: "https://github.com/copycache",
+    name: "Copycache"
+  },
+  {
+    label: "LinkedIn",
+    url: "https://www.linkedin.com/in/andreaustria/",
+    name: "Andre Carl Austria"
+  },
+]
 ---
 
 <GuestLayout content={{ title: "Home | Andre Austria" }}>
@@ -121,8 +131,10 @@ const projects = [
 
       <div class="flex flex-wrap gap-4 justify-center mt-5">
         <Button><FileText className="size-4" />Download CV</Button>
-        <Button variant="outline"
-          >Get in Touch<ArrowRight className="size-4" /></Button
+        <a href="#getInTouch"
+          ><Button variant="outline"
+            >Get in Touch<ArrowRight className="size-4" /></Button
+          ></a
         >
       </div>
     </section>
@@ -191,7 +203,9 @@ const projects = [
         <p class="font-semibold text-black dark:text-white text-xl mb-6">
           Projects
         </p>
-        <a href=""><Button variant="link">View All Projects</Button></a>
+        <a href="./projects"
+          ><Button variant="link">View All Projects</Button></a
+        >
       </div>
 
       <div class="grid gap-8">
@@ -246,6 +260,51 @@ const projects = [
           ))
         }
       </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div
+      id="getInTouch"
+      class="mx-auto max-w-5xl p-5 my-24 flex flex-col md:flex-row gap-12 items-start"
+    >
+      {/* Left side: Contact Info */}
+      <div class="md:w-1/2 space-y-6">
+        <p class="font-semibold --muted dark:--muted-foreground text-xl mb-6">
+          Get in Touch
+        </p>
+        <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+          Have a project idea, question, or just want to say hi? Fill out the
+          form and I’ll get back to you as soon as possible. I’m always open to
+          collaborating and connecting!
+        </p>
+
+        <p class="font-semibold --muted dark:--muted-foreground text-xl mb-6">
+          Let's Connect
+        </p>
+        <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+          Reach out to me via email or on social media.
+        </p>
+
+        <div class="space-y-4">
+          <div class="grid grid-cols-4 md:grid-cols-1 lg:grid-cols-4 gap-2 items-center">
+            {
+              connectLinks.map((link) => (
+                <span class="text-neutral-700 dark:text-neutral-300 font-semibold">{link.label}</span>
+                <a
+                  href={link.url}
+                  class="underline text-neutral-700 dark:text-neutral-300 hover:text-blue-500 transition-colors col-span-3"
+                  target="_blank"
+                >
+                  {link.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      {/* Right side: Contact Form */}
+      <GetintouchForm client:load />
     </div>
   </div>
 </GuestLayout>

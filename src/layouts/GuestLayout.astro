@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { ModeToggle } from "@/components/ModeToggle";
+import { Navigation } from "../components/Navbar";
 const { content } = Astro.props;
 ---
 
@@ -36,11 +37,12 @@ const { content } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{content.title}</title>
   </head>
-  <header>
-    <div>
-      <ModeToggle client:load />
-    </div>
+  <header
+    class="fixed top-0 left-0 w-full z-50"
+  >
+    <Navigation client:load />
   </header>
+
   <body>
     <slot />
   </body>
@@ -50,6 +52,7 @@ const { content } = Astro.props;
     >
       <div class="w-full h-full mx-auto px-5 max-w-5xl">
         <div class="h-full grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Left section: Links and copyright -->
           <div
             class="order-2 sm:order-1 flex flex-col items-center justify-center sm:items-start"
           >
@@ -74,14 +77,17 @@ const { content } = Astro.props;
               © 2024 Andre Austria. All rights reserved.
             </p>
           </div>
-          <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
+
+          <!-- Right section: Social links -->
+          <!-- <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
             <div class="flex flex-wrap gap-1 items-center justify-center">
               <a href="">facebook</a>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>
   </footer>
+
 
 </html>

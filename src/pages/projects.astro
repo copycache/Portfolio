@@ -1,0 +1,88 @@
+---
+import "../styles/global.css";
+// Component Imports
+import GuestLayout from "@/layouts/GuestLayout.astro";
+import { Image } from "astro:assets";
+import { Button } from "@/components/ui/button";
+import { FileText, ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { getProjectsFormatted } from "./api/project.ts";
+
+const projects = await getProjectsFormatted();
+
+---
+
+<GuestLayout content={{ title: "Projects | Andre Austria" }}>
+  <div>
+    <!-- Projects Section -->
+    <div class="mx-auto max-w-5xl p-5">
+      <div class="flex justify-between">
+        <p class="font-semibold text-black dark:text-white text-xl mb-6">
+          Projects
+        </p>
+        <a href=""><Button variant="link">View All Projects</Button></a>
+      </div>
+
+      <div class="grid gap-8">
+        {
+          projects.map((project) => (
+            <Card className="rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+              <div class="flex flex-col md:flex-row">
+                <CardContent className="p-0 md:w-1/2 relative group">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    class="w-full h-full object-cover rounded-md"
+                  />
+                  <a
+                    href=""
+                    target="_blank"
+                    class="absolute inset-0 rounded-md opacity-0 group-hover:opacity-75 transition-opacity duration-300 flex items-center justify-center
+         bg-black bg-opacity-40"
+                  >
+                    <span class="text-white font-medium text-sm">
+                      Live Preview
+                    </span>
+                  </a>
+                </CardContent>
+
+                <div class="flex flex-col justify-between md:w-2/3 p-6 gap-3">
+                  <CardHeader className="p-0">
+                    <CardTitle className="text-lg md:text-xl font-bold">
+                      {project.title}
+                    </CardTitle>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+                      {project.date}
+                    </p>
+                  </CardHeader>
+
+                  <CardDescription className="text-sm text-neutral-600 dark:text-neutral-400">
+                    {project.description}
+                  </CardDescription>
+
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    {project.tech.map((tech) => (
+                      <Badge variant="outline">{tech}</Badge>
+                    ))}
+                  </div>
+
+                  <CardFooter className="p-0 mt-4">
+                    <Button variant="outline">Explore More</Button>
+                  </CardFooter>
+                </div>
+              </div>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</GuestLayout>
