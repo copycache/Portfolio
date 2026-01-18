@@ -1,0 +1,209 @@
+---
+import "../../styles/global.css";
+import { getProjectsFormatted, getProjectLicense } from "../api/project.ts";
+import GuestLayout from "@/layouts/GuestLayout.astro";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+const { id } = Astro.params;
+const projects = await getProjectsFormatted();
+const project = projects.find((p) => String(p.title) === id);
+
+if (!project) {
+  throw new Error(`Project with id "${id}" not found`);
+}
+
+const license = await getProjectLicense(project.github_url);
+---
+
+<GuestLayout content={{ title: `${id} | Andre Austria` }}>
+  <div>
+    <section class="pt-36 pb-5">
+      <div class="w-full h-full mx-auto px-5 max-w-5xl">
+        <h1 class="text-4xl md:text-4xl font-bold text-black dark:text-white">
+          {project.title}
+        </h1>
+        <p class="text-gray-600 dark:text-gray-300">{project.description}</p>
+        <div class="flex flex-wrap gap-4 mb-10">
+          <Button className="mt-3">Live Demo</Button>
+          <Button className="mt-3">Source Code</Button>
+        </div>
+      </div>
+    </section>
+
+    <section class="pt-6 pb-5">
+      <div class="w-full h-full mx-auto px-5 max-w-5xl">
+        {
+          project.image ? (
+            <img
+              src={project.image}
+              alt={project.title}
+              class="w-full"
+            />
+          ) : (
+            <Card className="w-full h-64 flex items-center justify-center">
+              No preview available
+            </Card>
+          )
+        }
+      </div>
+    </section>
+  </div>
+
+  <Separator
+    className="w-full h-full mx-auto px-5 max-w-5xl"
+    orientation="horizontal"
+  />
+
+  {/* Features */}
+  <section class="pt-5 pb-5">
+    <div class="w-full h-full mx-auto px-5 max-w-5xl">
+      <h2 class="text-2xl font-semibold mb-3">Features</h2>
+      <!-- <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+        {project.features 
+          ? project.features.map((feature) => <li key={feature}>{feature}</li>) 
+          : <li>Feature details coming soon...</li>}
+      </ul> -->
+    </div>
+  </section>
+
+  <Separator
+    className="w-full h-full mx-auto px-5 max-w-5xl"
+    orientation="horizontal"
+  />
+
+  {/* Tech Stack */}
+  <section class="pt-6 pb-5">
+    <div class="w-full h-full mx-auto px-5 max-w-5xl">
+      <h2 class="text-2xl font-semibold mb-3">Tech Stack</h2>
+      <ul
+        class="list-disc list-inside text-neutral-600 dark:text-neutral-400 space-y-1"
+      >
+        {project.tech.map((tech) => <li key={tech}>{tech}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <Separator
+    className="w-full h-full mx-auto px-5 max-w-5xl"
+    orientation="horizontal"
+  />
+
+  {/* Getting Started */}
+  <section class="pt-6 pb-5">
+    <div class="w-full h-full mx-auto px-5 max-w-5xl">
+      <h2 class="text-2xl font-semibold mb-3">🛠 Getting Started</h2>
+      <p class="text-neutral-600 dark:text-neutral-400 mb-2">
+        1. Clone the project and install dependencies:
+      </p>
+
+      <Card>
+        <CardContent>
+          <pre>git clone {project.url}</pre>
+          <pre>cd {project.title}</pre>
+          <pre>npm install</pre>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+
+  <Separator
+    className="w-full h-full mx-auto px-5 max-w-5xl"
+    orientation="horizontal"
+  />
+
+  {/* Install Dependencies */}
+  <section class="pt-6 pb-5">
+    <div class="w-full h-full mx-auto px-5 max-w-5xl">
+      <h2 class="text-2xl font-semibold mb-3">⚙️ Setup Dependencies</h2>
+      <p class="text-neutral-600 dark:text-neutral-400 mb-2">
+        2. Run the following command to install and build the project
+        dependencies:
+      </p>
+
+      <Card>
+        <CardContent>
+          <pre>npm run install</pre>
+          <pre>npm run build</pre>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+
+  <Separator
+    className="w-full h-full mx-auto px-5 max-w-5xl"
+    orientation="horizontal"
+  />
+
+  {/* Configuration */}
+  <section class="pt-6 pb-5">
+    <div class="w-full h-full mx-auto px-5 max-w-5xl">
+      <h2 class="text-2xl font-semibold mb-3">
+        🗂 Project Configuration (Optional if the project has a server side)
+      </h2>
+      <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
+        (Optional if your project does not require server-side environment
+        variables)
+      </p>
+      <p class="text-neutral-600 dark:text-neutral-400 mb-2">
+        3. Create environment variables and configure other settings in a <code
+          >.env</code
+        > file located in your project root.
+      </p>
+
+      <Card>
+        <CardContent>
+          <pre><code>
+my-project/
+├─ public/
+├─ src/
+│  ├─ components/
+│  ├─ pages/
+│  └─ layouts/
+├─ package.json
+├─ astro.config.mjs
+└─ .env
+        </code></pre>
+        </CardContent>
+      </Card>
+    </div>
+  </section>
+
+  <Separator
+    className="w-full h-full mx-auto px-5 max-w-5xl"
+    orientation="horizontal"
+  />
+
+  <Separator
+    className="w-full h-full mx-auto px-5 max-w-5xl"
+    orientation="horizontal"
+  />
+
+  {/* License */}
+  <section class="pt-6 pb-5">
+    <div class="w-full h-full mx-auto px-5 max-w-5xl">
+      <h2 class="text-2xl font-semibold mb-3">License</h2>
+      <p class="text-neutral-600 dark:text-neutral-400">
+        {
+          license ? (
+            <p class="text-neutral-600 dark:text-neutral-400">
+              This project is licensed under the {license}.
+            </p>
+          ) : (
+            <p class="text-neutral-600 dark:text-neutral-400">
+              License information not available.
+            </p>
+          )
+        }
+      </p>
+    </div>
+  </section>
+</GuestLayout>

@@ -31,15 +31,37 @@ export async function getProjectsFormatted() {
       .filter((t) => t.project_id === project.id)
       .map((t) => t.techstack);
 
+    const formattedDate = project.date
+      ? new Date(project.date).toLocaleString("default", { month: "long", year: "numeric" })
+      : "Unknown";
+
     return {
       title: project.title,
-      date: project.date,
+      date: formattedDate,
       description: project.description,
-      image: project.image || "https://cdn.shadcnstudio.com/ss-assets/components/card/image-2.png",
+      image: project.image,
       tech: projectTech,
       url: project.url || "#",
+      github_url: project.github_url || "#",
     };
   });
 
   return formattedProjects;
+}
+
+export async function getProjectLicense(githubUrl: string) {
+  try {
+    const repoPath = githubUrl
+      .replace("https://github.com/", "")
+      .replace(/\/$/, ""); // e.g., "username/repo"
+
+    const res = await fetch(`https://api.github.com/repos/${repoPath}/license`);
+    if (!res.ok) return null;
+
+    const data = await res.json();
+    return data.license?.name || null;
+  } catch (error) {
+    console.error("Failed to fetch license:", error);
+    return null;
+  }
 }

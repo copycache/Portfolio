@@ -203,7 +203,7 @@ const connectLinks = [
         <p class="font-semibold text-black dark:text-white text-xl mb-6">
           Projects
         </p>
-        <a href="./projects"
+        <a href="./ErrorPage"
           ><Button variant="link">View All Projects</Button></a
         >
       </div>
@@ -214,21 +214,34 @@ const connectLinks = [
             <Card className="rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
               <div class="flex flex-col md:flex-row">
                 <CardContent className="p-0 md:w-1/2 relative group">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    class="w-full h-full object-cover rounded-md"
-                  />
-                  <a
-                    href=""
-                    target="_blank"
-                    class="absolute inset-0 rounded-md opacity-0 group-hover:opacity-75 transition-opacity duration-300 flex items-center justify-center
-         bg-black bg-opacity-40"
-                  >
-                    <span class="text-white font-medium text-sm">
-                      Live Preview
-                    </span>
-                  </a>
+                  {
+                    project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        class="w-full"
+                      />
+                      <a
+                        href=""
+                        target="_blank"
+                        class="absolute inset-0 rounded-md opacity-0 group-hover:opacity-75 transition-opacity duration-300 flex items-center justify-center
+            bg-black bg-opacity-40"
+                      >
+                        <span class="text-white font-medium text-sm">
+                          Live Preview
+                        </span>
+                      </a>
+                    ) : (
+                      <Card className="w-full h-full flex items-center justify-center">
+                        <CardContent className="flex flex-col items-center justify-center text-center gap-3">
+                          <p>
+                            No preview available
+                          </p>
+                          <a href={`${project.github_url}`} target="_blank" class="hover:underline">See Repository Instead</a>
+                        </CardContent>
+                      </Card>
+                    )
+                  }
                 </CardContent>
 
                 <div class="flex flex-col justify-between md:w-2/3 p-6 gap-3">
@@ -252,7 +265,7 @@ const connectLinks = [
                   </div>
 
                   <CardFooter className="p-0 mt-4">
-                    <Button variant="outline">Explore More</Button>
+                    <a href={`/project/${project.title}`}><Button>Explore More</Button></a>
                   </CardFooter>
                 </div>
               </div>
@@ -262,7 +275,7 @@ const connectLinks = [
       </div>
     </div>
 
-    <!-- Projects Section -->
+    <!-- Get in Touch Section -->
     <div
       id="getInTouch"
       class="mx-auto max-w-5xl p-5 my-24 flex flex-col md:flex-row gap-12 items-start"
