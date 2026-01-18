@@ -19,12 +19,41 @@ export function GetintouchForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(e.currentTarget);
 
-    // const res = await fetch("/api/auth/signin", {
-    //   method: "POST",
-    //   body: formData,
-    // });
+    const res = await fetch("/api/getintouch", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+
+      toast.error(data.message, {
+        description: "Please check your input and try again",
+        // icon: <OctagonXIcon className="w-5 h-5 text-red-500" />,
+        // style: {
+        //   "--normal-bg": "var(--popover)",
+        //   "--normal-text": "var(--popover-foreground)",
+        //   "--normal-border": "var(--border)",
+        //   "--border-radius": "var(--radius)",
+        // },
+        duration: 3000,
+        closeButton: true,
+      });
+
+      return;
+    }
+
+    toast.success("Message sent successfully!", {
+      description: "Thank you for getting in touch. We'll respond soon.",
+      duration: 3000,
+      closeButton: true,
+    });
+
+    // Optionally reset the form
+    form.reset();
   };
 
   // Get theme
@@ -55,6 +84,9 @@ export function GetintouchForm() {
   }, []);
 
   return (
+    <>
+      <Toaster position="top-right" closeButton />
+
       <Card className="w-full max-w-lg py-8 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
         <CardContent>
           {/* Attach onSubmit to the form */}
@@ -97,5 +129,6 @@ export function GetintouchForm() {
           </Button>
         </CardFooter>
       </Card>
+    </>
   );
 }

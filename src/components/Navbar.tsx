@@ -1,5 +1,6 @@
 import { ModeToggle } from "@/components/ModeToggle";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react";
 
 export function Navigation() {
   const links = [
@@ -8,22 +9,45 @@ export function Navigation() {
     { label: "Projects", href: "/ErrorPage" }
   ];
 
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Hide when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
   return (
     <>
       {/* Spacer so content doesn't hide behind fixed nav */}
       <div className="h-24" />
 
       <nav
-        className="
+        className={`
           fixed top-4 left-1/2 z-50
           -translate-x-1/2
-          w-md max-w-6xl
+          w-[calc(100%-3rem)] max-w-lg
           rounded-2xl px-6 py-3
           backdrop-blur-xl backdrop-saturate-150
           bg-background/30 dark:bg-background/10
           border border-white/40 dark:border-white/20
           shadow-[0_8px_32px_rgba(0,0,0,0.12)]
-        "
+          transition-all duration-300 ease-out
+          ${hidden ? "-translate-y-24 opacity-0" : "translate-y-0 opacity-100"}
+        `}
       >
         {/* Liquid light layer */}
         <div
