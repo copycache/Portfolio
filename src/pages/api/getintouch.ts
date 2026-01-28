@@ -34,9 +34,9 @@ export const POST: APIRoute = async ({ request }) => {
   const formData = await request.formData();
   const name = formData.get("name")?.toString();
   const email = formData.get("email")?.toString();
-  const message = formData.get("message")?.toString();
+  const description = formData.get("description")?.toString();
 
-  if (!name || !email || !message) {
+  if (!name || !email || !description) {
     return new Response(
       JSON.stringify({ message: "Name, email, and message are required" }),
       { status: 400 },
@@ -46,7 +46,7 @@ export const POST: APIRoute = async ({ request }) => {
   const { error } = await supabase.from("notification").insert({
     name,
     email,
-    message,
+    description,
   });
 
   if (error) {

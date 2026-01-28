@@ -30,7 +30,7 @@ export function GetintouchForm() {
     if (!res.ok) {
       const data = await res.json();
 
-      toast.error(data.message, {
+      toast.error(data.description, {
         description: "Please check your input and try again",
         // icon: <OctagonXIcon className="w-5 h-5 text-red-500" />,
         // style: {
@@ -111,10 +111,10 @@ export function GetintouchForm() {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="description">Message</Label>
                 <Textarea
-                  id="message"
-                  name="message"
+                  id="description"
+                  name="description"
                   placeholder="Write your message here..."
                   className="resize-none h-50"
                 />

@@ -1,7 +1,7 @@
 ---
-import '../styles/global.css';
-import { supabase } from "../lib/supabase";
-import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.astro';
+import '../../styles/global.css';
+import { supabase } from "../../lib/supabase";
+import { AuthenticatedLayout } from '@/layouts/AuthenticatedLayout';
 
 const accessToken = Astro.cookies.get("sb-access-token");
 const refreshToken = Astro.cookies.get("sb-refresh-token");
@@ -37,7 +37,7 @@ try {
 
 const email = session.data.user?.email;
 ---
-<AuthenticatedLayout content={{ title: "Dashboard | Andre Austria" }}>
+<AuthenticatedLayout title="Dashboard | Andre Austria" client:load>
   <h1>Welcome {email}</h1>
   <p>We are happy to see you here</p>
   <form action="/api/auth/signout">
