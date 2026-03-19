@@ -1,3 +1,4 @@
+import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase";
 
 // Fetch all Uptime
@@ -29,3 +30,19 @@ export async function updateUptimeStatus(id: number, status: string) {
 
   return data;
 }
+
+export const GET: APIRoute = async () => {
+  try {
+    const [uptime] = await Promise.all([getUptime()]);
+    const item = uptime[0];
+    const newStatus = item.status ? "FALSE" : "TRUE";
+    const updated = await updateUptimeStatus(item.id, newStatus);
+    return new Response(JSON.stringify({ updated }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Error:", error);
+    return new Response(JSON.stringify({ message: "Internal server error" }), { status: 500 });
+  }
+};
