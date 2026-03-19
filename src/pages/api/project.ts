@@ -2,7 +2,10 @@ import { supabase } from "../../lib/supabase";
 
 // Fetch all projects
 export async function getProjects() {
-  const { data: projects, error } = await supabase.from("project").select("*").order("date", { ascending: false });
+  const { data: projects, error } = await supabase
+    .from("project")
+    .select("*")
+    .order("date", { ascending: false });
   if (error) {
     console.error("Error fetching projects:", error);
     return [];
@@ -12,7 +15,9 @@ export async function getProjects() {
 
 // Fetch all tech stack items
 export async function getTechstack() {
-  const { data: techstack, error } = await supabase.from("techstack").select("*");
+  const { data: techstack, error } = await supabase
+    .from("techstack")
+    .select("*");
   if (error) {
     console.error("Error fetching tech stack:", error);
     return [];
@@ -22,8 +27,10 @@ export async function getTechstack() {
 
 // Format projects with tech stack names
 export async function getProjectsFormatted() {
-  const projects = await getProjects();
-  const techstack = await getTechstack();
+  const [projects, techstack] = await Promise.all([
+    getProjects(),
+    getTechstack(),
+  ]);
 
   const formattedProjects = projects.map((project) => {
     // Filter techstack items that belong to this project
@@ -32,7 +39,10 @@ export async function getProjectsFormatted() {
       .map((t) => t.techstack);
 
     const formattedDate = project.date
-      ? new Date(project.date).toLocaleString("default", { month: "long", year: "numeric" })
+      ? new Date(project.date).toLocaleString("default", {
+          month: "long",
+          year: "numeric",
+        })
       : "Unknown";
 
     return {
@@ -53,7 +63,7 @@ export async function getProjectLicense(githubUrl: string) {
   try {
     const repoPath = githubUrl
       .replace("https://github.com/", "")
-      .replace(/\/$/, ""); // e.g., "username/repo"
+      .replace(/\/$/, "");
 
     const res = await fetch(`https://api.github.com/repos/${repoPath}/license`);
     if (!res.ok) return null;

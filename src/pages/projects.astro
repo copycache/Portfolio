@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/card";
 import { getProjectsFormatted } from "./api/project.ts";
 
-const projects = await getProjectsFormatted();
+const [projects] = await Promise.all([getProjectsFormatted()]);
 
 ---
 

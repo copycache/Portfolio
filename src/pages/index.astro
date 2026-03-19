@@ -17,7 +17,7 @@ import {
 import { getProjectsFormatted } from "./api/project.ts";
 import { GetintouchForm } from "@/components/GetintouchForm";
 
-const projects = await getProjectsFormatted();
+const [projects] = await Promise.all([getProjectsFormatted()]);
 
 const techStack = [
   {

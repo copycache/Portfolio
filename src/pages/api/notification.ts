@@ -2,10 +2,13 @@ import { supabase } from "../../lib/supabase";
 
 // Fetch all Notification
 export async function getNotification() {
-  const { data: notification, error } = await supabase.from("notification").select("*");
+  const { data: notification, error } = await supabase
+    .from("notification")
+    .select("id, name, email, description, isRead, created_at")
+    .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Error fetching projects:", error);
+    console.error(error);
     return [];
   }
   return notification;
@@ -35,18 +38,22 @@ function timeAgo(dateString: string) {
 }
 
 export async function getNotificationFormatted() {
-  const notifications = await getNotification();
+  try {
+    const [notifications] = await Promise.all([getNotification()]);
 
-  const notification = notifications.map((notification) => {
-    return {
-      id:notification.id,
-      name: notification.name,
-      email: notification.email,
-      description: notification.description,
-      isRead: notification.isRead,
-      created_at: timeAgo(notification.created_at),
-    };
-  });
-
-  return notification;
+    const notification = notifications.map((notification) => {
+      return {
+        id: notification.id,
+        name: notification.name,
+        email: notification.email,
+        description: notification.description,
+        isRead: notification.isRead,
+        created_at: timeAgo(notification.created_at),
+      };
+    });
+    return notification;
+  } catch (error) {
+    console.error("Error fetching notifications:", error);
+    return [];
+  }
 }

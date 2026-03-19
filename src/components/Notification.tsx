@@ -14,6 +14,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { getNotificationFormatted } from "@/pages/api/notification";
+import { ca } from "date-fns/locale";
 
 interface NotificationItem {
   id: string;
@@ -29,8 +30,12 @@ export function Notification() {
 
   useEffect(() => {
     async function fetchNotifications() {
-      const data = await getNotificationFormatted();
-      setNotifications(data);
+      try {
+        const [data] = await Promise.all([getNotificationFormatted()]);
+        setNotifications(data);
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
     }
 
     fetchNotifications();
@@ -81,9 +86,15 @@ export function Notification() {
                   <span className="text-foreground font-semibold">
                     {notif.name}
                   </span>
-                  <time className="text-xs text-(--muted-foreground)"> {notif.created_at}</time>
+                  <time className="text-xs text-(--muted-foreground)">
+                    {" "}
+                    {notif.created_at}
+                  </time>
                 </p>
-                <p className="truncate w-48 text-(--muted-foreground)"> Sent you a message. </p>
+                <p className="truncate w-48 text-(--muted-foreground)">
+                  {" "}
+                  Sent you a message.{" "}
+                </p>
               </div>
             </a>
           ))}

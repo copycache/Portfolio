@@ -1,7 +1,6 @@
 import "../styles/global.css";
 
-import React, { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
+import React, { useEffect } from "react";
 
 // UI
 import { AppSidebar } from "@/components/Sidebar";

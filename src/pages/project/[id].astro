@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/card";
 
 const { id } = Astro.params;
-const projects = await getProjectsFormatted();
+const [projects] = await Promise.all([getProjectsFormatted()]);
 const project = projects.find((p) => String(p.title) === id);
 
 if (!project) {
