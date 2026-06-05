@@ -1,0 +1,141 @@
+---
+import "../styles/global.css";
+import GuestLayout from "@/layouts/GuestLayout.astro";
+
+import { Badge } from "@/components/ui/badge";
+
+const experiences = [
+  {
+    startDate: "Jan 2024",
+    endDate: "Present",
+    title: "Junior Front-End Developer",
+    company: "CreativeStudio PH",
+    badge: { label: "current", variant: "current" },
+    description:
+      "Developing client-facing landing pages and e-commerce storefronts for SME clients across Southeast Asia. Implemented design systems in Figma to code with pixel-perfect accuracy and optimized performance scores above 95 on Lighthouse.",
+    techstack: ["Next.js", "Tailwind CSS", "Figma", "TypeScript", "Shopify"],
+    images: [
+      { src: "/images/work/storefront.jpg", caption: "Storefront" },
+      { src: "/images/work/design-review.jpg", caption: "Design review" },
+      { src: "/images/work/component-work.jpg", caption: "Component work" },
+    ],
+  },
+  {
+    startDate: "Jun 2023",
+    endDate: "Dec 2023",
+    title: "Full Stack Developer Intern",
+    company: "TechCorp Solutions",
+    badge: { label: "Internship", variant: "internship" },
+    description:
+      "Built and maintained internal web tools used by 200+ employees. Led the migration of a legacy PHP monolith to a modern React + Node.js stack, reducing page load times by 60%. Collaborated closely with the product team in bi-weekly sprints.",
+    techstack: ["React", "Node.js", "PostgreSQL", "REST APIs", "Docker"],
+    images: [
+      { src: "/images/work/team-standup.jpg", caption: "Team standup" },
+      { src: "/images/work/dashboard-build.jpg", caption: "Dashboard build" },
+      { src: "/images/work/sprint-demo.jpg", caption: "Sprint demo" },
+    ],
+  },
+];
+---
+
+<GuestLayout content={{ title: "Work Experience | Andre Austria" }}>
+  <div class="min-h-screen text-white">
+    <div class="mx-auto max-w-5xl px-5 pt-28 pb-20">
+
+      <!-- Header -->
+      <div class="mb-2">
+        <p class="text-xs text-zinc-500 uppercase tracking-widest mb-3">MY JOURNEY</p>
+        <div class="flex items-center justify-between">
+          <h1 class="text-4xl font-bold text-white">Work Experience</h1>
+          <div class="flex items-center gap-2 text-sm text-zinc-300">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+            </span>
+            Open to new opportunities
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-zinc-800 mt-6 mb-12" />
+
+      <!-- Timeline -->
+      <div class="relative">
+        <!-- Vertical line -->
+        <div class="absolute left-[108px] top-0 bottom-0 w-px bg-zinc-800"></div>
+
+        <div class="space-y-16">
+          {experiences.map((exp) => (
+            <div class="relative flex gap-0">
+              <!-- Dates column -->
+              <div class="w-[108px] shrink-0 pt-1 text-right pr-6">
+                <p class="text-xs leading-relaxed">
+                  {exp.startDate}<br />{exp.endDate}
+                </p>
+              </div>
+
+              <!-- Timeline dot -->
+              <div class="relative shrink-0 w-0">
+                {exp.badge.variant === "current" && (
+                    <div class="absolute -left-[4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-green-400 border-2 border-green-900 z-10"></div>
+                  )}
+                {exp.badge.variant !== "current" && (
+                    <div class="absolute -left-[4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-zinc-600 border-2 border-zinc-900 z-10"></div>
+                  )}
+              </div>
+
+              <!-- Content -->
+              <div class="pl-8 flex-1">
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <h2 class="text-base font-semibold text-white">{exp.title}</h2>
+                </div>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-sm text-zinc-400">{exp.company}</span>
+                  {exp.badge.variant === "current" && (
+                    <Badge variant="default" className="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">{exp.badge.label}</Badge>
+                  )}
+                  {exp.badge.variant === "internship" && (
+                    <Badge variant="secondary">{exp.badge.label}</Badge>
+                  )}
+                </div>
+
+                <!-- Description -->
+                <p class="text-sm text-zinc-400 leading-relaxed mb-4 max-w-2xl">
+                  {exp.description}
+                </p>
+
+                <!-- Techstack -->
+                <div class="flex flex-wrap gap-2 mb-5">
+                  {exp.techstack.map((skill) => (
+                    <Badge variant="outline">
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+
+                <!-- Image grid -->
+                <div class="flex gap-3">
+                  {exp.images.map((img) => (
+                    <div class="flex flex-col gap-1">
+                      <div class="w-[120px] h-[80px] rounded overflow-hidden bg-zinc-800">
+                        <img
+                          src={img.src}
+                          alt={img.caption}
+                          class="w-full h-full object-cover"
+                          onerror="this.parentElement.classList.add('img-placeholder')"
+                        />
+                      </div>
+                      <p class="text-[11px] text-zinc-500">{img.caption}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</GuestLayout>

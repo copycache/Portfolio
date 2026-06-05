@@ -17,6 +17,8 @@ import {
 import { getProjectsFormatted } from "./api/project.ts";
 import { GetintouchForm } from "@/components/GetintouchForm";
 
+import github from "thesvg/github";
+
 const [projects] = await Promise.all([getProjectsFormatted()]);
 
 const techStack = [
@@ -119,6 +121,7 @@ const connectLinks = [
 
 <GuestLayout content={{ title: "Home | Andre Austria" }}>
   <div>
+    <!-- <div set:html={github.svg} /> -->
     <section class="grid place-items-center h-screen content-center">
       <div class="p-5 text-center">
         <p class="text-lg md:text-xl lg:text-2xl font-semibold opacity-75">
@@ -322,7 +325,51 @@ const connectLinks = [
       </div>
 
       {/* Right side: Contact Form */}
-      <GetintouchForm client:load />
+      <div class="md:w-1/2 space-y-3">
+
+        <!-- Main availability card -->
+        <Card className="bg-[#212121] border-[#2e2e2e] rounded-2xl p-6">
+          
+          <!-- Header -->
+          <div class="flex items-center gap-2">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400"></span>
+            </span>
+            <span class="text-[15px] font-bold text-neutral-100 tracking-tight">
+              Available for new opportunities
+            </span>
+          </div>
+
+          <!-- Description -->
+          <p class="text-sm text-neutral-400 leading-relaxed">
+            I'm currently open to full-time roles, freelance projects, and internships. Based in Manila,
+            Philippines — open to remote work globally.
+          </p>
+
+          <!-- Info grid -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <Card className="bg-[#2a2a2a] border-[#333] rounded-xl px-4 py-3.5">
+              <p class="text-[11px] text-neutral-500 tracking-wide">Preferred work</p>
+              <p class="text-[15px] font-semibold text-neutral-100">Remote / Hybrid</p>
+            </Card>
+            <Card className="bg-[#2a2a2a] border-[#333] rounded-xl px-4 py-3.5">
+              <p class="text-[11px] text-neutral-500 tracking-wide">Role type</p>
+              <p class="text-[15px] font-semibold text-neutral-100">Full-time / Freelance</p>
+            </Card>
+            <Card className="bg-[#2a2a2a] border-[#333] rounded-xl px-4 py-3.5">
+              <p class="text-[11px] text-neutral-500 tracking-wide">Response time</p>
+              <p class="text-[15px] font-semibold text-neutral-100">Within 24 hours</p>
+            </Card>
+            <Card className="bg-[#2a2a2a] border-[#333] rounded-xl px-4 py-3.5">
+              <p class="text-[11px] text-neutral-500 tracking-wide">Time zone</p>
+              <p class="text-[15px] font-semibold text-neutral-100">PHT (UTC+8)</p>
+            </Card>
+          </div>
+
+        </Card>
+      </div>
+      <!-- <GetintouchForm client:load /> -->
     </div>
   </div>
 </GuestLayout>

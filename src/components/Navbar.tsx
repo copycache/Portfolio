@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 export function Navigation() {
   const links = [
     { label: "Home", href: "/" },
-    { label: "Work", href: "/ErrorPage" },
-    { label: "Projects", href: "/ErrorPage" }
+    { label: "Work", href: "/work" },
+    { label: "Projects", href: "/projects" },
   ];
 
   const [hidden, setHidden] = useState(false);
@@ -89,5 +89,73 @@ export function Navigation() {
         </div>
       </nav>
     </>
+
+    // <>
+    //   <nav
+    //     className={`
+    //       fixed top-0 left-0 right-0 z-50
+    //       flex items-center justify-between
+    //       px-6 py-3
+    //       transition-all duration-300 ease-out
+    //       ${hidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"}
+    //     `}
+    //   >
+    //     {/* Logo */}
+    //     {/* <div className="text-sm font-bold tracking-tight">
+    //       <a href="/">Andre Austria</a>
+    //     </div> */}
+
+    //     {/* Center pill nav */}
+    //     <div
+    //       className="
+    //         flex items-center gap-1
+    //         rounded-xl px-2 py-1.5
+    //         backdrop-blur-xl backdrop-saturate-150
+    //         bg-background/30 dark:bg-background/20
+    //         border border-white/20 dark:border-white/10
+    //         shadow-[0_4px_24px_rgba(0,0,0,0.12)]
+    //       "
+    //     >
+    //       <ul className="flex items-center gap-1 text-sm font-medium">
+    //         {links.map((link) => (
+    //           <li key={link.label}>
+    //             <a
+    //               href={link.href}
+    //               className="
+    //                 px-3 py-1.5 rounded-lg
+    //                 text-black/70 dark:text-white/70
+    //                 hover:text-black dark:hover:text-white
+    //                 hover:bg-white/10
+    //                 transition-all
+    //               "
+    //             >
+    //               {link.label}
+    //             </a>
+    //           </li>
+    //         ))}
+    //       </ul>
+
+    //       {/* Divider */}
+    //       <div className="w-px h-4 bg-white/20 mx-1" />
+
+    //       {/* Dark mode toggle */}
+    //       <ModeToggle />
+    //     </div>
+
+    //     {/* Available for work */}
+    //     {/* <div
+    //       className="
+    //         flex items-center gap-2
+    //         text-sm
+    //         rounded-xl px-4 py-1.5
+    //         border border-white/20 dark:border-white/10
+    //         text-black/70 dark:text-white/70
+    //       "
+    //     >
+    //       Available for work
+    //       <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px_2px_rgba(74,222,128,0.4)]" />
+    //     </div> */}
+    //   </nav>
+    // </>
   );
 }
