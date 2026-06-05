@@ -6,7 +6,7 @@ export function Navigation() {
   const links = [
     { label: "Home", href: "/" },
     { label: "Work", href: "/work" },
-    { label: "Projects", href: "/projects" },
+    { label: "Projects", href: "/404" },
   ];
 
   const [hidden, setHidden] = useState(false);
