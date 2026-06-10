@@ -1,11 +1,11 @@
 ---
 import "../styles/global.css";
-// Component Imports
 import GuestLayout from "@/layouts/GuestLayout.astro";
-import { Image } from "astro:assets";
+
 import { Button } from "@/components/ui/button";
-import { FileText, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -18,40 +18,96 @@ import { getProjectsFormatted } from "./api/project.ts";
 
 const [projects] = await Promise.all([getProjectsFormatted()]);
 
+const allTags = [
+  "AI",
+  "AngularJs",
+  "Bootstrap",
+  "C++",
+  "CSS",
+  "Frappe",
+  "HTML",
+  "Laravel",
+  "MySQL",
+  "Node.js",
+  "PHP",
+  "Python",
+  "React",
+  "Sass",
+  "TypeScript",
+];
 ---
 
 <GuestLayout content={{ title: "Projects | Andre Austria" }}>
-  <div>
-    <!-- Projects Section -->
-    <div class="mx-auto max-w-5xl p-5">
-      <div class="flex justify-between">
-        <p class="font-semibold text-black dark:text-white text-xl mb-6">
-          Projects
-        </p>
-        <a href=""><Button variant="link">View All Projects</Button></a>
+  <div class="min-h-screen">
+    <div class="mx-auto max-w-5xl px-5 pt-28 pb-20">
+      <div class="mb-2">
+        <h1 class="text-3xl font-bold tracking-tight">Projects</h1>
       </div>
+      <p class="text-sm text-neutral-400 mb-8">
+        A curated collection highlighting projects I've built, the technologies
+        used, and their impact.
+      </p>
 
-      <div class="grid gap-8">
-        {
-          projects.map((project) => (
-            <Card className="rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+      <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="lg:sticky">
+          <ul class="flex flex-wrap gap-2 lg:flex-col">
+            {
+              allTags.map((tag) => (
+                <li>
+                  <Label
+                    htmlFor={tag}
+                    className="
+                      flex items-center gap-2
+                      rounded-md border
+                      px-3 py-2
+                      whitespace-nowrap
+                      cursor-pointer
+                    "
+                  >
+                    <Checkbox id={tag} name={tag} />
+                    <span>{tag}</span>
+                  </Label>
+                </li>
+              ))
+            }
+          </ul>
+        </aside>
+
+        <!-- PROJECT LIST -->
+        <main class="col-span-3 space-y-6">
+          {
+            projects.map((project) => (
+              <Card className="rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
               <div class="flex flex-col md:flex-row">
                 <CardContent className="p-0 md:w-1/2 relative group">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    class="w-full h-full object-cover rounded-md"
-                  />
-                  <a
-                    href=""
-                    target="_blank"
-                    class="absolute inset-0 rounded-md opacity-0 group-hover:opacity-75 transition-opacity duration-300 flex items-center justify-center
-         bg-black bg-opacity-40"
-                  >
-                    <span class="text-white font-medium text-sm">
-                      Live Preview
-                    </span>
-                  </a>
+                  {
+                    project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        class="w-full"
+                      />
+                      <a
+                        href=""
+                        target="_blank"
+                        class="absolute inset-0 rounded-md opacity-0 group-hover:opacity-75 transition-opacity duration-300 flex items-center justify-center
+            bg-black bg-opacity-40"
+                      >
+                        <span class="text-white font-medium text-sm">
+                          Live Preview
+                        </span>
+                      </a>
+                    ) : (
+                      <Card className="w-full h-full flex items-center justify-center">
+                        <CardContent className="flex flex-col items-center justify-center text-center gap-3">
+                          <p>
+                            No preview available
+                          </p>
+                          <a href={`${project.github_url}`} target="_blank" class="hover:underline">See Repository Instead</a>
+                        </CardContent>
+                      </Card>
+                    )
+                  }
                 </CardContent>
 
                 <div class="flex flex-col justify-between md:w-2/3 p-6 gap-3">
@@ -75,13 +131,14 @@ const [projects] = await Promise.all([getProjectsFormatted()]);
                   </div>
 
                   <CardFooter className="p-0 mt-4">
-                    <Button variant="outline">Explore More</Button>
+                    <a href={`/project/${project.title}`}><Button>Explore More</Button></a>
                   </CardFooter>
                 </div>
               </div>
             </Card>
-          ))
-        }
+            ))
+          }
+        </main>
       </div>
     </div>
   </div>
