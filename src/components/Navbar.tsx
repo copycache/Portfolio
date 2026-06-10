@@ -16,7 +16,6 @@ export function Navigation() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Hide when scrolling down, show when scrolling up
       if (currentScrollY > lastScrollY && currentScrollY > 80) {
         setHidden(true);
       } else {

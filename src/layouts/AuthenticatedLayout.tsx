@@ -67,7 +67,7 @@ export function AuthenticatedLayout({
       <SidebarInset>
         {/* Header */}
         <header className="flex items-center justify-between border-b px-4 py-2">
-          {/* Left: Sidebar trigger + Search */}
+          {/* Left */}
           <div className="flex items-center gap-3 text-sm">
             <SidebarTrigger />
             <Separator orientation="vertical" className="h-5" />
@@ -79,7 +79,7 @@ export function AuthenticatedLayout({
             </InputGroup>
           </div>
 
-          {/* Right: Notifications + Mode toggle */}
+          {/* Right */}
           <div className="flex items-center gap-3">
             <Notification />
 

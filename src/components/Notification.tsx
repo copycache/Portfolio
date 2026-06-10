@@ -41,7 +41,6 @@ export function Notification() {
     fetchNotifications();
   }, []);
 
-  // Count unread notifications
   const unreadCount = notifications.filter((notif) => !notif.isRead).length;
 
   return (

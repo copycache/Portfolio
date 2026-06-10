@@ -65,10 +65,8 @@ export function GetintouchForm() {
     ).matches;
     const isDark = savedTheme ? savedTheme === "dark" : prefersDark;
 
-    // Set initial theme
     document.documentElement.classList.toggle("dark", isDark);
 
-    // Watch for theme changes
     const observer = new MutationObserver(() => {
       const isDarkNow = document.documentElement.classList.contains("dark");
       localStorage.setItem("theme", isDarkNow ? "dark" : "light");
@@ -79,7 +77,6 @@ export function GetintouchForm() {
       attributeFilter: ["class"],
     });
 
-    // Cleanup on unmount
     return () => observer.disconnect();
   }, []);
 
@@ -89,7 +86,6 @@ export function GetintouchForm() {
 
       <Card className="w-full max-w-lg py-8 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
         <CardContent>
-          {/* Attach onSubmit to the form */}
           <form id="submit" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
@@ -123,7 +119,6 @@ export function GetintouchForm() {
           </form>
         </CardContent>
         <CardFooter>
-          {/* Make the button type="submit" so it triggers form submit */}
           <Button type="submit" form="submit" className="w-full">
             Send Message
           </Button>

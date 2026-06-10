@@ -15,7 +15,6 @@ import { Label } from "@/components/ui/label";
 import { OctagonXIcon } from "lucide-react";
 
 export function LoginForm() {
-  // Handle Submition
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -47,19 +46,15 @@ export function LoginForm() {
     window.location.href = "./admin/dashboard";
   };
 
-  // Get theme
   useEffect(() => {
-    // Get saved theme or system preference
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
     const isDark = savedTheme ? savedTheme === "dark" : prefersDark;
 
-    // Set initial theme
     document.documentElement.classList.toggle("dark", isDark);
 
-    // Watch for theme changes
     const observer = new MutationObserver(() => {
       const isDarkNow = document.documentElement.classList.contains("dark");
       localStorage.setItem("theme", isDarkNow ? "dark" : "light");
@@ -70,7 +65,6 @@ export function LoginForm() {
       attributeFilter: ["class"],
     });
 
-    // Cleanup on unmount
     return () => observer.disconnect();
   }, []);
 
@@ -86,7 +80,6 @@ export function LoginForm() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          {/* Attach onSubmit to the form */}
           <form id="login" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
@@ -108,7 +101,6 @@ export function LoginForm() {
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          {/* Make the button type="submit" so it triggers form submit */}
           <Button type="submit" form="login" className="w-full">
             Login
           </Button>

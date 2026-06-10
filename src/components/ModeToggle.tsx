@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 export function ModeToggle() {
   const [isDark, setIsDark] = React.useState(false);
 
-  // On mount: check localStorage or system preference
   React.useEffect(() => {
     const saved = localStorage.getItem("theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
