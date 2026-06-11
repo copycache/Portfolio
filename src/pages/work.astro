@@ -59,30 +59,32 @@ const experiences = [
       <div class="border-t border-zinc-800 mt-6 mb-12" />
 
       <div class="relative">
-        <div class="absolute left-[108px] top-0 bottom-0 w-px bg-zinc-800"></div>
+        <!-- Timeline vertical line: left-0 on mobile, left-[108px] on md+ -->
+        <div class="absolute left-0 md:left-[108px] top-0 bottom-0 w-px bg-zinc-800"></div>
 
         <div class="space-y-16">
           {experiences.map((exp) => (
             <div class="relative flex gap-0">
-              <!-- Dates column -->
-              <div class="w-[108px] shrink-0 pt-1 text-right pr-6">
+              <div class="hidden md:block w-[108px] shrink-0 pt-1 text-right pr-6">
                 <p class="text-xs leading-relaxed">
                   {exp.startDate}<br />{exp.endDate}
                 </p>
               </div>
 
-              <!-- Timeline dot -->
               <div class="relative shrink-0 w-0">
                 {exp.badge.variant === "current" && (
-                    <div class="absolute -left-[4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-green-400 z-10"></div>
-                  )}
+                  <div class="absolute -left-[4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-green-400 z-10"></div>
+                )}
                 {exp.badge.variant !== "current" && (
-                    <div class="absolute -left-[4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-zinc-600 border-2 border-zinc-900 z-10"></div>
-                  )}
+                  <div class="absolute -left-[4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-zinc-600 border-2 border-zinc-900 z-10"></div>
+                )}
               </div>
 
-              <!-- Content -->
-              <div class="pl-8 flex-1">
+              <div class="pl-6 md:pl-8 flex-1 min-w-0">
+                <p class="md:hidden text-xs text-neutral-600 dark:text-neutral-400 mb-1">
+                  {exp.startDate} — {exp.endDate}
+                </p>
+
                 <div class="flex flex-wrap items-center gap-2 mb-1">
                   <h2 class="text-base font-semibold">{exp.title}</h2>
                 </div>
@@ -96,24 +98,19 @@ const experiences = [
                   )}
                 </div>
 
-                <!-- Description -->
                 <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 max-w-2xl">
                   {exp.description}
                 </p>
 
-                <!-- Techstack -->
                 <div class="flex flex-wrap gap-2 mb-5">
                   {exp.techstack.map((skill) => (
-                    <Badge variant="outline">
-                      {skill}
-                    </Badge>
+                    <Badge variant="outline">{skill}</Badge>
                   ))}
                 </div>
 
-                <!-- Image grid -->
-                <div class="flex gap-3">
+                <div class="flex gap-3 overflow-x-auto pb-1 -mx-1 px-1 sm:flex-wrap sm:overflow-visible">
                   {exp.images.map((img) => (
-                    <div class="flex flex-col gap-1">
+                    <div class="flex flex-col gap-1 shrink-0">
                       <div class="w-[120px] h-[80px] rounded overflow-hidden bg-zinc-200 dark:bg-zinc-800">
                         <img
                           src={img.src}
@@ -130,7 +127,6 @@ const experiences = [
           ))}
         </div>
       </div>
-
     </div>
   </div>
 </GuestLayout>
