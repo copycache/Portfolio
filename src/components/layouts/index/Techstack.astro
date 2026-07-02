@@ -1,0 +1,111 @@
+---
+import { Image } from "astro:assets";
+
+import github from "thesvg/github";
+
+const techStack = [
+  {
+    name: "JavaScript",
+    icon: "/icons/Javascript.png",
+    url: "https://www.javascript.com/",
+  },
+  {
+    name: "TypeScript",
+    icon: "/icons/Typescript.png",
+    url: "https://www.typescriptlang.org/",
+  },
+  { name: "Node.js", icon: "/icons/NodeJS.svg", url: "https://nodejs.org/en" },
+  { name: "Vue.js", icon: "/icons/VueJS.svg", url: "https://vuejs.org/" },
+  { name: "Nuxt.js", icon: "/icons/NuxtJS.svg", url: "https://nuxt.com/" },
+  { name: "React", icon: "/icons/ReactJS.svg", url: "https://react.dev/" },
+  { name: "Next.js", icon: "/icons/NextJS.svg", url: "https://nextjs.org/" },
+  {
+    name: "Angular",
+    icon: "/icons/AngularJS.svg",
+    url: "https://angularjs.org/",
+  },
+  {
+    name: "Tailwind CSS",
+    icon: "/icons/TailwindCSS.svg",
+    url: "https://tailwindcss.com/",
+  },
+  {
+    name: "Bootstrap",
+    icon: "/icons/Bootstrap.svg",
+    url: "https://getbootstrap.com/",
+  },
+  { name: "Sass", icon: "/icons/Sass.svg", url: "https://sass-lang.com/" },
+  { name: "PHP", icon: "/icons/PHP.svg", url: "https://www.php.net/" },
+  { name: "Laravel", icon: "/icons/Laravel.svg", url: "https://laravel.com/" },
+  { name: "Python", icon: "/icons/Python.svg", url: "https://www.python.org/" },
+  {
+    name: "Flask",
+    icon: "/icons/Flask.svg",
+    url: "https://flask.palletsprojects.com/",
+  },
+  {
+    name: "Django",
+    icon: "/icons/Django.svg",
+    url: "https://www.djangoproject.com/",
+  },
+  { name: "MySQL", icon: "/icons/MySQL.svg", url: "https://www.mysql.com/" },
+  {
+    name: "Supabase",
+    icon: "/icons/Supabase.png",
+    url: "https://supabase.com/",
+  },
+  {
+    name: "Firebase",
+    icon: "/icons/Firebase.svg",
+    url: "https://firebase.google.com/",
+  },
+  { name: "Kotlin", icon: "/icons/Kotlin.svg", url: "https://kotlinlang.org/" },
+  { name: "Git", icon: "/icons/Git.svg", url: "https://git-scm.com/" },
+  {
+    name: "NVM",
+    icon: "/icons/Nvm.svg",
+    url: "https://www.nvmnode.com/guide/download.html",
+  },
+  { name: "Docker", icon: "/icons/Docker.svg", url: "https://www.docker.com/" },
+  { name: "Linux", icon: "/icons/Linux.svg", url: "https://www.linux.org/" },
+  { name: "Debian", icon: "/icons/Debian.svg", url: "https://www.debian.org/" },
+  { name: "Figma", icon: "/icons/Figma.svg", url: "https://www.figma.com/" },
+];
+---
+
+<div class="space-y-4">
+        <p class="font-semibold text-black dark:text-white text-xl">
+          Tech Stack
+        </p>
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mt-5">
+          {
+            techStack.map((tech) => (
+              <a href={tech.url} target="_blank" class="group">
+                <div
+                  class="flex flex-col items-center justify-center gap-2
+                            aspect-square rounded-xl
+                            bg-neutral-100 dark:bg-neutral-900
+                            border border-neutral-200 dark:border-neutral-800
+                            transition-all duration-200
+                            hover:scale-105 hover:shadow-md"
+                >
+                  <Image
+                    src={tech.icon}
+                    alt={tech.name}
+                    width="40"
+                    height="40"
+                    class="object-contain"
+                  />
+
+                  <p
+                    class="text-xs sm:text-sm font-medium
+                              text-neutral-700 dark:text-neutral-300"
+                  >
+                    {tech.name}
+                  </p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>

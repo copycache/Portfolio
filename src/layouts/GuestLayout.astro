@@ -1,8 +1,18 @@
 ---
 import "../styles/global.css";
+// Layout Imports
 import { ModeToggle } from "@/components/ModeToggle";
 import { Navigation } from "../components/Navbar";
+
+// UI Imports
+import { Button } from "@/components/ui/button";
+
+// Icon Imports
+import { ChevronUp } from "lucide-react";
+
+// Scripts
 const { content } = Astro.props;
+const currentYear = new Date().getFullYear();
 ---
 
 <html lang="en">
@@ -24,47 +34,67 @@ const { content } = Astro.props;
     <slot />
   </body>
   <footer>
-    <section
-      class="py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25"
-    >
+    <!-- Top -->
+    <div class="border-t border-white/10">
       <div class="w-full h-full mx-auto px-5 max-w-5xl">
-        <div class="h-full grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <!-- Left section: Links and copyright -->
-          <div
-            class="order-2 sm:order-1 flex flex-col items-center justify-center sm:items-start"
-          >
-            <div>
-              <a
-                href=""
-                class="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
-              >
-                Terms
-              </a>
-              |
-              <a
-                href=""
-                class="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
-              >
-                Privacy Policy
-              </a>
-            </div>
-            <p
-              class="text-sm mt-2 text-center sm:text-left text-black dark:text-white"
+        <div class="flex items-center justify-between py-4">
+          <p class="text-sm text-white/40">Andre Austria</p>
+          <a onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full bg-transparent border-white/20 text-white hover:bg-white/10"
             >
-              © 2024 Andre Austria. All rights reserved.
-            </p>
-          </div>
-
-          <!-- Right section: Social links -->
-          <!-- <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
-            <div class="flex flex-wrap gap-1 items-center justify-center">
-              <a href="">facebook</a>
-            </div>
-          </div> -->
+              BACK TO TOP <ChevronUp/>
+            </Button>
+          </a>
         </div>
       </div>
-    </section>
+    </div>
+ 
+    <!-- Middle -->
+    <div class="border-t border-white/10">
+      <div class="w-full h-full mx-auto px-5 max-w-5xl">
+        <div class="pt-8 pb-4">
+          <p class="text-xs font-semibold tracking-wide text-white/40">
+            HAVE A PROJECT IN MIND?
+          </p>
+ 
+          <div class="w-full flex items-center justify-start -mx-5 px-5 overflow-hidden">
+            <h2
+              class="select-none font-extrabold uppercase leading-[0.85] tracking-tight text-[18vw] sm:text-[13vw] lg:text-[9rem] text-transparent whitespace-nowrap"
+              style="-webkit-text-stroke: 1px rgba(255,255,255,0.18); text-stroke: 1px rgba(255,255,255,0.18);"
+            >
+              Let&rsquo;s Talk
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- Bottom -->
+    <div class="border-t border-white/10">
+      <div class="w-full h-full mx-auto px-5 max-w-6xl">
+        <div class="flex items-center justify-center py-4">
+          <p class="text-xs text-white/40 text-center">
+            <a
+              href=""
+              class="hover:text-white transition-colors duration-300 ease-in-out"
+            >
+              Terms
+            </a>
+            <span class="mx-1">|</span>
+            <a
+              href=""
+              class="hover:text-white transition-colors duration-300 ease-in-out"
+            >
+              Privacy Policy
+            </a>
+            <span class="mx-1">|</span>
+            © {currentYear} Andre Austria. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
   </footer>
-
-
 </html>

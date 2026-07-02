@@ -1,0 +1,122 @@
+---
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+const connectLinks = [
+  {
+    label: "Email",
+    url: "mailto:austria.andrecarl@gmail.com",
+    name: "austria.andrecarl@gmail.com"
+  },
+  {
+    label: "Facebook",
+    url: "https://www.facebook.com/andre.austria.353794",
+    name: "Andre.Austria"
+  },
+  {
+    label: "Instagram",
+    url: "https://www.instagram.com/knetic_404/",
+    name: "Andre"
+  },
+  {
+    label: "Github",
+    url: "https://github.com/copycache",
+    name: "Copycache"
+  },
+  {
+    label: "LinkedIn",
+    url: "https://www.linkedin.com/in/andreaustria/",
+    name: "Andre Carl Austria"
+  },
+]
+---
+
+<div
+    id="getInTouch"
+    class="mx-auto max-w-5xl p-5 my-24 flex flex-col md:flex-row gap-12 items-start"
+>
+    {/* Left side */}
+    <div class="md:w-1/2 space-y-6">
+    <p class="font-semibold --muted dark:--muted-foreground text-xl mb-6">
+        Get in Touch
+    </p>
+    <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+        Let's create something meaningful together. Whether you have a project, 
+        a collaboration opportunity, or just want to connect, 
+        I'd love to hear from you and explore how we can work together.
+    </p>
+
+    <p class="font-semibold --muted dark:--muted-foreground text-xl mb-6">
+        Let's Connect
+    </p>
+    <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+        Reach out to me via email or on social media.
+    </p>
+
+    <div class="space-y-4">
+        <div class="grid grid-cols-4 md:grid-cols-1 lg:grid-cols-4 gap-2 items-center">
+        {
+            connectLinks.map((link) => (
+            <span class="text-neutral-700 dark:text-neutral-300 font-semibold">{link.label}</span>
+            <a
+                href={link.url}
+                class="underline text-neutral-700 dark:text-neutral-300 hover:text-blue-500 transition-colors col-span-3"
+                target="_blank"
+            >
+                {link.name}
+            </a>
+            ))
+        }
+        </div>
+    </div>
+    </div>
+
+    {/* Right side */}
+    <div class="md:w-1/2 space-y-3">
+    <Card className="rounded-2xl p-6">
+        
+        <div class="flex items-center gap-2">
+        <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400"></span>
+        </span>
+        <span class="text-md font-bold tracking-tight">
+            Available for new opportunities
+        </span>
+        </div>
+
+        <!-- Description -->
+        <p class="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">
+        I'm currently open to full-time roles, freelance projects, and internships. Based in Manila,
+        Philippines — open to remote work globally.
+        </p>
+
+        <div class="grid grid-cols-2 gap-2.5">
+        <Card className="rounded-xl px-4 py-3.5">
+            <p class="text-xs text-neutral-600 dark:text-neutral-400 tracking-wide">Preferred work</p>
+            <p class="text-md font-semibold">Remote / Hybrid</p>
+        </Card>
+        <Card className="rounded-xl px-4 py-3.5">
+            <p class="text-xs text-neutral-600 dark:text-neutral-400 tracking-wide">Role type</p>
+            <p class="text-md font-semibold">Full-time / Freelance</p>
+        </Card>
+        <Card className="rounded-xl px-4 py-3.5">
+            <p class="text-xs text-neutral-600 dark:text-neutral-400 tracking-wide">Response time</p>
+            <p class="text-md font-semibold">Within 24 hours</p>
+        </Card>
+        <Card className="rounded-xl px-4 py-3.5">
+            <p class="text-xs text-neutral-600 dark:text-neutral-400 tracking-wide">Time zone</p>
+            <p class="text-md font-semibold">PHT (UTC+8)</p>
+        </Card>
+        </div>
+
+    </Card>
+    </div>
+    <!-- <GetintouchForm client:load /> -->
+</div>
