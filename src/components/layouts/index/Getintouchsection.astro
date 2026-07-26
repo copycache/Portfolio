@@ -43,38 +43,38 @@ const connectLinks = [
 >
     {/* Left side */}
     <div class="md:w-1/2 space-y-6">
-    <p class="font-semibold --muted dark:--muted-foreground text-xl mb-6">
-        Get in Touch
-    </p>
-    <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
-        Let's create something meaningful together. Whether you have a project, 
-        a collaboration opportunity, or just want to connect, 
-        I'd love to hear from you and explore how we can work together.
-    </p>
+        <p class="font-semibold --muted dark:--muted-foreground text-xl mb-6">
+            Get in Touch
+        </p>
+        <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+            Let's create something meaningful together. Whether you have a project, 
+            a collaboration opportunity, or just want to connect, 
+            I'd love to hear from you and explore how we can work together.
+        </p>
 
-    <p class="font-semibold --muted dark:--muted-foreground text-xl mb-6">
-        Let's Connect
-    </p>
-    <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
-        Reach out to me via email or on social media.
-    </p>
+        <p class="font-semibold --muted dark:--muted-foreground text-xl mb-6">
+            Let's Connect
+        </p>
+        <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">
+            Reach out to me via email or on social media.
+        </p>
 
-    <div class="space-y-4">
-        <div class="grid grid-cols-4 md:grid-cols-1 lg:grid-cols-4 gap-2 items-center">
-        {
-            connectLinks.map((link) => (
-            <span class="text-neutral-700 dark:text-neutral-300 font-semibold">{link.label}</span>
-            <a
-                href={link.url}
-                class="underline text-neutral-700 dark:text-neutral-300 hover:text-blue-500 transition-colors col-span-3"
-                target="_blank"
-            >
-                {link.name}
-            </a>
-            ))
-        }
+        <div class="space-y-4">
+            <div class="grid grid-cols-4 md:grid-cols-1 lg:grid-cols-4 gap-2 items-center">
+            {
+                connectLinks.map((link) => (
+                <span class="text-neutral-700 dark:text-neutral-300 font-semibold">{link.label}</span>
+                <a
+                    href={link.url}
+                    class="underline text-neutral-700 dark:text-neutral-300 hover:text-blue-500 transition-colors col-span-3"
+                    target="_blank"
+                >
+                    {link.name}
+                </a>
+                ))
+            }
+            </div>
         </div>
-    </div>
     </div>
 
     {/* Right side */}

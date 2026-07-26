@@ -1,7 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase";
 
-// Fetch all Uptime
 export async function getUptime() {
   const { data: uptime, error } = await supabase
     .from("uptime")
@@ -15,7 +14,6 @@ export async function getUptime() {
   return uptime;
 }
 
-// Update Uptime status
 export async function updateUptimeStatus(id: number, status: string) {
   const { data, error } = await supabase
     .from("uptime")

@@ -1,6 +1,5 @@
 import { supabase } from "../../lib/supabase";
 
-// Fetch all Notification
 export async function getNotification() {
   const { data: notification, error } = await supabase
     .from("notification")

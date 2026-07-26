@@ -1,14 +1,11 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase";
 
-// 24 hours in milliseconds
 const COOLDOWN = 24 * 60 * 60 * 1000;
 
-// In-memory store (NO DB)
 const ipSubmissions = new Map<string, number>();
 
 export const POST: APIRoute = async ({ request }) => {
-  // Get IP address
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0] ||
     request.headers.get("x-real-ip") ||
@@ -17,7 +14,6 @@ export const POST: APIRoute = async ({ request }) => {
   const now = Date.now();
   const lastSubmission = ipSubmissions.get(ip);
 
-  // Check cooldown
   if (lastSubmission && now - lastSubmission < COOLDOWN) {
     const hoursLeft = Math.ceil(
       (COOLDOWN - (now - lastSubmission)) / (60 * 60 * 1000),
@@ -55,7 +51,6 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  // Save submission time
   ipSubmissions.set(ip, now);
 
   return new Response(null, { status: 200 });

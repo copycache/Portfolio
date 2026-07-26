@@ -1,5 +1,0 @@
-*.astro linguist-language=Astro
-*.react linguist-language=React
-*.inc linguist-language=TypeScript
-*.css linguist-language=CSS
-*.tailwind linguist-language=Tailwind

@@ -81,13 +81,17 @@ const allTags = [
                 <CardContent className="p-0 md:w-1/2 relative group">
                   {
                     project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        class="w-full"
-                      />
+                      <div class="relative w-full h-full aspect-video overflow-hidden bg-black">
+                        <iframe
+                          src={project.url}
+                          class="absolute top-0 left-0 origin-top-left pointer-events-none"
+                          style="width: 420%; height: 420%; transform: scale(0.238);"
+                          scrolling="no"
+                          loading="lazy"
+                        />
+                      </div>
                       <a
-                        href=""
+                        href={`${project.url}`}
                         target="_blank"
                         class="absolute inset-0 rounded-md opacity-0 group-hover:opacity-75 transition-opacity duration-300 flex items-center justify-center
             bg-black bg-opacity-40"

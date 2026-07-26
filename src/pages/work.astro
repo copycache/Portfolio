@@ -4,38 +4,8 @@ import GuestLayout from "@/layouts/GuestLayout.astro";
 
 import { Badge } from "@/components/ui/badge";
 
-const experiences = [
-  {
-    startDate: "Sep 22 2025",
-    endDate: "Present",
-    title: "IT Software Developer",
-    company: "Digima Web Solutions Inc.",
-    badge: { label: "current", variant: "current" },
-    description:
-      "Developing client-facing landing pages and e-commerce storefronts for SME clients across Southeast Asia. Implemented design systems in Figma to code with pixel-perfect accuracy and optimized performance scores above 95 on Lighthouse.",
-    techstack: ["Angular Js", "TypeScript", "Laravel", "Php", "Bootstrap", "Sass", "MySQL", "Python", "Frappe", "C++"],
-    images: [
-      { src: "/images/work/storefront.jpg", caption: "Storefront" },
-      { src: "/images/work/design-review.jpg", caption: "Design review" },
-      { src: "/images/work/component-work.jpg", caption: "Component work" },
-    ],
-  },
-  {
-    startDate: "Jun 2023",
-    endDate: "Dec 2023",
-    title: "Full Stack Developer Intern",
-    company: "TechCorp Solutions",
-    badge: { label: "Internship", variant: "internship" },
-    description:
-      "Built and maintained internal web tools used by 200+ employees. Led the migration of a legacy PHP monolith to a modern React + Node.js stack, reducing page load times by 60%. Collaborated closely with the product team in bi-weekly sprints.",
-    techstack: ["React", "Node.js", "PostgreSQL", "REST APIs", "Docker"],
-    images: [
-      { src: "/images/work/team-standup.jpg", caption: "Team standup" },
-      { src: "/images/work/dashboard-build.jpg", caption: "Dashboard build" },
-      { src: "/images/work/sprint-demo.jpg", caption: "Sprint demo" },
-    ],
-  },
-];
+import { getExperiences } from "./api/work.ts";
+const [experiences] = await Promise.all([getExperiences()]);
 ---
 
 <GuestLayout content={{ title: "Work Experience | Andre Austria" }}>
@@ -59,7 +29,6 @@ const experiences = [
       <div class="border-t border-zinc-800 mt-6 mb-12" />
 
       <div class="relative">
-        <!-- Timeline vertical line: left-0 on mobile, left-[108px] on md+ -->
         <div class="absolute left-0 md:left-[108px] top-0 bottom-0 w-px bg-zinc-800"></div>
 
         <div class="space-y-16">
@@ -72,10 +41,10 @@ const experiences = [
               </div>
 
               <div class="relative shrink-0 w-0">
-                {exp.badge.variant === "current" && (
+                {exp.status.variant === "current" && (
                   <div class="absolute -left-[4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-green-400 z-10"></div>
                 )}
-                {exp.badge.variant !== "current" && (
+                {exp.status.variant !== "current" && (
                   <div class="absolute -left-[4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-zinc-600 border-2 border-zinc-900 z-10"></div>
                 )}
               </div>
@@ -90,17 +59,19 @@ const experiences = [
                 </div>
                 <div class="flex items-center gap-2 mb-3">
                   <span class="text-sm text-neutral-600 dark:text-neutral-400">{exp.company}</span>
-                  {exp.badge.variant === "current" && (
-                    <Badge variant="default" className="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">{exp.badge.label}</Badge>
+                  {exp.status.variant === "current" && (
+                    <Badge variant="default" className="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">{exp.status.label}</Badge>
                   )}
-                  {exp.badge.variant === "internship" && (
-                    <Badge variant="secondary">{exp.badge.label}</Badge>
+                  {exp.status.variant === "internship" && (
+                    <Badge variant="secondary">{exp.status.label}</Badge>
                   )}
                 </div>
 
-                <p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 max-w-2xl">
-                  {exp.description}
-                </p>
+                <ul class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 max-w-2xl list-disc list-outside pl-5 space-y-1">
+                  {exp.description.map((point: string) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
 
                 <div class="flex flex-wrap gap-2 mb-5">
                   {exp.techstack.map((skill) => (
